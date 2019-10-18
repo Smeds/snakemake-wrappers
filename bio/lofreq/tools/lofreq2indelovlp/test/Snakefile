@@ -1,0 +1,9 @@
+rule lofreq:
+    input:
+        "data/{sample}.vcf"
+    output:
+        "data/{sample}.mod.vcf"
+    log:
+        "logs/lofreq_call/{sample}.log"
+    wrapper:
+        "master/bio/lofreq/tools/lofreq2indelovlp"

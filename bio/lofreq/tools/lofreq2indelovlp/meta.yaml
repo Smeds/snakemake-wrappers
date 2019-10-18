@@ -1,0 +1,4 @@
+name: lofreq_indel_ovlp.py
+description: merge overlapping indels
+authors:
+  - Patrik Smeds

@@ -1,0 +1,4 @@
+##fileformat=VCFv4.0
+##contig=<ID=chr1,length=249250621,assembly=hg19>
+#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  JI-2
+chr1    115256503       .       G       T       105     PASS    .   . .
