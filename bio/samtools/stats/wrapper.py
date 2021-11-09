@@ -10,7 +10,7 @@ from snakemake.shell import shell
 
 bed = snakemake.params.get("bed", None)
 if bed is not None:
-  bed = " -t " + bed
+    bed = " -t " + bed
 
 extra = snakemake.params.get("extra", "")
 region = snakemake.params.get("region", "")
