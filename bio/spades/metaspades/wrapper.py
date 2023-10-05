@@ -38,7 +38,6 @@ else:
     memory_requirements = ""
 
 if not os.path.exists(os.path.join(output_dir, "params.txt")):
-
     # parse short reads
     if hasattr(snakemake.input, "reads"):
         reads = snakemake.input.reads
@@ -81,7 +80,11 @@ if not os.path.exists(os.path.join(output_dir, "params.txt")):
 else:
     # params.txt file exitst already I restart from previous run
 
-    shell("echo '\n\nRestart Spades \n' >> {log[0]}")
+    shell(
+        "echo '\n\nRestart Spades \n Remove pipline_state file copy files to force copy files if necessary.' >> {log[0]}"
+    )
+
+    shell("rm -f {output_dir}/pipeline_state/stage_*_copy_files 2>> {log}")
 
     shell(
         "spades.py --meta "
@@ -104,7 +107,6 @@ Output_key_mapping = {
 has_named_output = False
 for key in Output_key_mapping:
     if hasattr(snakemake.output, key):
-
         has_named_output = True
         file_produced = os.path.join(output_dir, Output_key_mapping[key])
         file_renamed = getattr(snakemake.output, key)
@@ -114,7 +116,6 @@ for key in Output_key_mapping:
 
 
 if not has_named_output:
-
     file_produced = os.path.join(output_dir, "contigs.fasta")
     file_renamed = snakemake.output[0]
 

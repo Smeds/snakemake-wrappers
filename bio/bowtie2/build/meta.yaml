@@ -1,4 +1,14 @@
 name: "bowtie2_build"
 description: Map reads with bowtie2.
+url: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
 authors:
   - Daniel Standage
+  - Filipe G. Vieira
+input:
+  - ref: Path to FASTA reference
+output:
+  - Path to Bowtie2 reference index
+params:
+  - extra: additional program arguments besides `--threads` and io options.
+notes: |
+  * The `extra` param allows for additional program arguments.

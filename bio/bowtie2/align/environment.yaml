@@ -1,7 +1,8 @@
 channels:
-  - bioconda
   - conda-forge
-  - defaults
+  - bioconda
+  - nodefaults
 dependencies:
-  - bowtie2 ==2.4.4  # Keep consistent with version specified in bowtie2/build
-  - samtools ==1.10
+  - bowtie2 =2.5.1
+  - samtools =1.17
+  - snakemake-wrapper-utils =0.6.2

@@ -7,11 +7,10 @@ __license__ = "MIT"
 from snakemake.shell import shell
 from snakemake_wrapper_utils.samtools import get_samtools_opts
 
-
 samtools_opts = get_samtools_opts(snakemake)
+extra = snakemake.params.get("extra", "")
+region = snakemake.params.get("region", "")
 log = snakemake.log_fmt_shell(stdout=True, stderr=True, append=True)
 
 
-shell(
-    "samtools view {snakemake.params.extra} {samtools_opts} -o {snakemake.output[0]} {snakemake.input[0]} {log}"
-)
+shell("samtools view {samtools_opts} {extra} {snakemake.input[0]} {region} {log}")

@@ -10,6 +10,12 @@ from os import path
 from snakemake.shell import shell
 
 
+index = snakemake.input.get("idx", "")
+if isinstance(index, str):
+    index = path.splitext(snakemake.input.idx)[0]
+else:
+    index = path.splitext(snakemake.input.idx[0])[0]
+
 # Check inputs.
 fastq = (
     snakemake.input.fastq
@@ -43,14 +49,12 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
 # Determine which pipe command to use for converting to bam or sorting.
 if sort == "none":
-
     # Simply convert to output format using samtools view.
     pipe_cmd = (
         "samtools view -h --output-fmt " + out_ext + " -o {snakemake.output[0]} -"
     )
 
 elif sort == "samtools":
-
     # Sort alignments using samtools sort.
     pipe_cmd = "samtools sort {sort_extra} -o {snakemake.output[0]} -"
 
@@ -66,7 +70,6 @@ elif sort == "samtools":
     sort_extra += " --output-fmt {}".format(out_ext)
 
 elif sort == "picard":
-
     # Sort alignments using picard SortSam.
     pipe_cmd = (
         "picard SortSam {sort_extra} INPUT=/dev/stdin"
@@ -80,7 +83,7 @@ else:
 shell(
     "(bwa {alg}"
     " {extra}"
-    " {snakemake.params.index}"
+    " {index}"
     " {snakemake.input.sai}"
     " {snakemake.input.fastq}"
     " | " + pipe_cmd + ") {log}"

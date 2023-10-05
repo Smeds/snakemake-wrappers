@@ -16,14 +16,17 @@ build = snakemake.params.build
 type = snakemake.params.type
 chromosome = snakemake.params.get("chromosome", "")
 
-if release < 98:
-    print("Ensembl releases <98 are unsupported.", file=open(snakemake.log[0], "w"))
-    exit(1)
 
 branch = ""
 if release >= 81 and build == "GRCh37":
     # use the special grch37 branch for new releases
     branch = "grch37/"
+elif snakemake.params.get("branch"):
+    branch = snakemake.params.branch + "/"
+
+if release < 98 and not branch:
+    print("Ensembl releases <98 are unsupported.", file=open(snakemake.log[0], "w"))
+    exit(1)
 
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
@@ -60,18 +63,16 @@ else:
 species_filename = species if release >= 91 else species.capitalize()
 
 urls = [
-    "ftp://ftp.ensembl.org/pub/{branch}release-{release}/variation/vcf/{species}/{species_filename}{suffix}.{ext}".format(
+    "ftp://ftp.ensembl.org/pub/{branch}release-{release}/variation/vcf/{species}/{species_filename}{suffix}.vcf.gz".format(
         release=release,
         species=species,
         suffix=suffix,
         species_filename=species_filename,
         branch=branch,
-        ext=ext,
     )
     for suffix in suffixes
-    for ext in ["vcf.gz", "vcf.gz.csi"]
 ]
-names = [os.path.basename(url) for url in urls if url.endswith(".gz")]
+names = [os.path.basename(url) for url in urls]
 
 try:
     gather = "curl {urls}".format(urls=" ".join(map("-O {}".format, urls)))

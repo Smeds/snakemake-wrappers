@@ -3,9 +3,18 @@
 {{ name|upper }}
 {{ name | length * '=' }}
 
+{% if blacklisted %}
+.. image:: https://img.shields.io/badge/blacklisted-{{ blacklisted|urlencode }}-red
+{% endif %}
+
+.. image:: https://img.shields.io/github/issues-pr/snakemake/snakemake-wrappers/{{ wrapper_path }}?label=version%20update%20pull%20requests
+   :target: https://github.com/snakemake/snakemake-wrappers/pulls?q=is%3Apr+is%3Aopen+label%3A{{ wrapper_path }}
+
 {{ description }}
 
+{% if url %}
 **URL**: {{ url }}
+{% endif %}
 
 Example
 -------
@@ -25,6 +34,14 @@ When running with
     snakemake --use-conda
 
 the software dependencies will be automatically deployed into an isolated environment before execution.
+
+{% if notes %}
+
+Notes
+-----
+
+{{ notes }}
+{% endif %}
 
 {% if pkgs|length %}
 Software dependencies
@@ -72,14 +89,6 @@ Params
 
 {% endfor %}
 
-{% endif %}
-
-{% if notes %}
-
-Notes
------
-
-{{ notes }}
 {% endif %}
 
 

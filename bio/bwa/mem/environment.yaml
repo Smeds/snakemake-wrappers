@@ -1,8 +1,9 @@
 channels:
-  - bioconda
   - conda-forge
-  - defaults
+  - bioconda
+  - nodefaults
 dependencies:
-  - bwa ==0.7.17
-  - samtools =1.12
-  - picard =2.25
+  - bwa =0.7.17
+  - samtools =1.17
+  - picard-slim =3.0.0
+  - snakemake-wrapper-utils =0.6.2
