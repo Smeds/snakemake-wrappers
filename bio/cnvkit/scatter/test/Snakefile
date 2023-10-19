@@ -1,0 +1,25 @@
+rule cnvkit_scatter_pdf:
+    input:
+        cnr="test.cnr",
+        cns="test.cns",
+    output:
+        "test.pdf",
+    log:
+        "logs/test.pdf.log",
+    params:
+        extra = "" # optional
+    wrapper:
+        "master/bio/cnvkit/scatter"
+
+rule cnvkit_scatter_png:
+    input:
+        cnr="test.cnr",
+        cns="test.cns",
+    output:
+        "test.png",
+    log:
+        "logs/test.png.log",
+    params:
+        extra = "" # optional
+    wrapper:
+        "master/bio/cnvkit/scatter"

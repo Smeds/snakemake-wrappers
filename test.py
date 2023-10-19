@@ -1180,6 +1180,28 @@ def test_bwa_mapping_meta():
         ],
     )
 
+@skip_if_not_modified
+def test_cnvkit_scatter():
+    run(
+        "bio/cnvkit/scatter",
+        [
+            "snakemake",
+            "--cores",
+            "1",
+            "--use-conda",
+            "test.png",
+        ],
+    )
+    run(
+        "bio/cnvkit/scatter",
+        [
+            "snakemake",
+            "--cores",
+            "1",
+            "--use-conda",
+            "test.pdf",
+        ],
+    )
 
 @skip_if_not_modified
 def test_enhanced_volcano():
