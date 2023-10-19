@@ -1181,45 +1181,25 @@ def test_bwa_mapping_meta():
     )
 
 @skip_if_not_modified
-def test_bwa_mapping_meta():
+def test_cnvkit_scatter():
     run(
-        "bio/cnvkit/diagram",
+        "bio/cnvkit/scatter",
         [
             "snakemake",
             "--cores",
             "1",
             "--use-conda",
-            "test.cns.pdf",
+            "test.png",
         ],
     )
     run(
-        "bio/cnvkit/diagram",
+        "bio/cnvkit/scatter",
         [
             "snakemake",
             "--cores",
             "1",
             "--use-conda",
-            "test.cnr.pdf",
-        ],
-    )
-    run(
-        "bio/cnvkit/diagram",
-        [
-            "snakemake",
-            "--cores",
-            "1",
-            "--use-conda",
-            "test.cnn.pdf",
-        ],
-    )
-    run(
-        "bio/cnvkit/diagram",
-        [
-            "snakemake",
-            "--cores",
-            "1",
-            "--use-conda",
-            "test.cnscnr.pdf",
+            "test.pdf",
         ],
     )
 
