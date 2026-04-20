@@ -3,5 +3,6 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  - nonpareil =3.4.1
-  - snakemake-wrapper-utils =0.6.2
+  - nonpareil =3.5.5
+  - pbzip2 =1.1.13
+  - snakemake-wrapper-utils =0.8.0

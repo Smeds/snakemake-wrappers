@@ -10,7 +10,6 @@ from snakemake.shell import shell
 from snakemake_wrapper_utils.java import get_java_opts
 from snakemake_wrapper_utils.samtools import get_samtools_opts
 
-
 # Extract arguments.
 extra = snakemake.params.get("extra", "")
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
@@ -52,6 +51,11 @@ elif sort == "samtools":
 
     # Sort alignments using samtools sort.
     pipe_cmd = "samtools sort {samtools_opts} {sort_extra} -T {tmpdir}"
+
+elif sort == "fgbio":
+    if sort_order == "queryname":
+        sort_extra += " -s Queryname"
+    pipe_cmd = "fgbio SortBam -i /dev/stdin -o {snakemake.output[0]} {sort_extra}"
 
 elif sort == "picard":
     # Sort alignments using picard SortSam.

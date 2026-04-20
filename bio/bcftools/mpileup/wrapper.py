@@ -7,7 +7,6 @@ __license__ = "MIT"
 from snakemake.shell import shell
 from snakemake_wrapper_utils.bcftools import get_bcftools_opts
 
-
 extra = snakemake.params.get("extra", "")
 bcftools_opts = get_bcftools_opts(
     snakemake, parse_ref=("--no-reference" not in extra), parse_memory=False
@@ -19,4 +18,4 @@ class MissingReferenceError(Exception):
     pass
 
 
-shell("bcftools mpileup {bcftools_opts} {extra} {snakemake.input[0]} {log}")
+shell("bcftools mpileup {bcftools_opts} {extra} {snakemake.input.alignments} {log}")
